@@ -6,7 +6,7 @@ use Elementor\Group_Control_Text_Stroke;
 use Elementor\Group_Control_Text_Shadow;
 
 
-if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
+defined( 'ABSPATH' ) || die();
 
 
 Class Heading extends \Elementor\Widget_Base{
@@ -99,38 +99,37 @@ Class Heading extends \Elementor\Widget_Base{
             [
                 'label'   => __( 'Link', 'my-addon' ),
                 'type'    => Controls_Manager::URL,
-                'options' => false,
                 'default' => [
-                    'url' => '#'
+                    'url' => '#',
                 ]
             ]
         );
 
         $this->add_control(
-            'heading_size_tag',
-            [
-                'label'    => __( 'HTML Tag', 'elementor' ),
-                'type'     => Controls_Manager::SELECT,
-                'default' => 'h2'
-                'option'   => [
-                    'h1'   => 'H1',
-                    'h2'   => 'H2',
-                    'h3'   => 'H3',
-                    'h4'   => 'H4',
-                    'h5'   => 'H5',
-                    'h6'   => 'H6',
-                    'div'  => 'div',
-                    'span' => 'span',
-                    'p'    => 'p'
-                ]
-            ]
-        );
+			'header_size',
+			[
+				'label'    => esc_html__( 'HTML Tag', 'my-addon' ),
+				'type'     => Controls_Manager::SELECT,
+                'default'  => 'h2',
+				'options'  => [
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p' => 'p',
+				],
+			]
+		);
         
         $this->end_controls_section();
 
 
         $this->start_controls_section(
-            'heading_style',
+            'style',
             [
                 'label' => __( 'Heading Style', 'my-addon' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
@@ -140,28 +139,35 @@ Class Heading extends \Elementor\Widget_Base{
         $this->add_control(
             'text_align',
             [
-                'label'     => __( 'Alignment', 'my-addon' ),
-                'type'      => Controls_Manager::CHOOSE,
-                'options'   => [
-                    'left'  => [
+                'label'         => __( 'Alignment', 'my-addon' ),
+                'type'          => Controls_Manager::CHOOSE,
+                'options'       => [
+                    'left'      => [
                         'title' => __( 'Left', 'my-addon' ),
-                        'icon' => 'eicon-text-align-left',
+                        'icon'  => 'eicon-text-align-left',
                     ],
-                    'center' => [
+                    'center'    => [
                         'title' => __( 'Center', 'my-addon' ),
-                        'icon' => 'eicon-text-align-center',
+                        'icon'  => 'eicon-text-align-center',
                     ],
                     'right' => [
                         'title' => __( 'Right', 'my-addon' ),
-                        'icon' => 'eicon-text-align-right',
+                        'icon'  => 'eicon-text-align-right',
                     ],
                 ],
-                'toggle' => true,
-                'selectors' => [
+                'toggle'        => true,
+                'selectors'     => [
                     '{{WRAPPER}} .my-class' => 'text-align: {{VALUE}};',
                 ]
             ]
         );
+
+        $this->add_control(
+			'separator',
+			[
+				'type' => Controls_Manager::DIVIDER,
+			]
+		);
 
         $this->add_group_control(
             Group_Control_Typography::get_type(),
@@ -185,62 +191,69 @@ Class Heading extends \Elementor\Widget_Base{
             Group_Control_Text_Shadow::get_type(),
             [
                 'name'     => 'text_shadow',
-                'selector' => '{{WRAPPER}} .my-class h2',
+                'selector' => '{{WRAPPER}} .my-class h2'
             ]
         );
-
 
 
         $this->start_controls_tabs('title_color');
 
         $this->start_controls_tab(
-            'title_color_tab',
+            'color_tab',
             [
-                'label' => __( 'Normal', 'my-addon' ),
+                'label' => __( 'Normal', 'my-addon' )
             ]
         );
 
 
         $this->add_control(
-            'text_color',
+            'color',
             [
-                'label' => __( 'Text Color', 'my-addon' ),
-                'type'  => Controls_Manager::COLOR,
+                'label'     => __( 'Color', 'my-addon' ),
+                'type'      =>      Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} .my-class h2 a' => 'color: {{VALUE}}',
-                ],
+                    '{{WRAPPER}} .my-class h2 a' => 'color: {{VALUE}}'
+                ]
             ]
         );
 
         $this->end_controls_tab();
 
 
-        // color hover title
         $this->start_controls_tab(
-            'title_color_hover',
+            'color_hover_tab',
             [
-                'label' => __( 'Hover', 'my-addon' ),
+                'label' => __( 'Hover', 'my-addon' )
             ]
         );
 
         $this->add_control(
-            'text_color_hover',
+            'color_hover',
             [
-                'label' => __( 'Text Color Hover', 'my-addon' ),
-                'type' => Controls_Manager::COLOR,
+                'label'     => __( 'Color Hover', 'my-addon' ),
+                'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .my-class h2 a:hover' => 'color: {{VALUE}}',
-                ],
+                ]
             ]
         );
 
         $this->end_controls_tab();
-        // end style section
+
         $this->end_controls_section();
 
     }
 
-    // render part 
+    
+    /**
+     * Render the Widget
+     * 
+     * Render heading widget output on the frontend
+     * 
+     * @since 1.0.0
+     * 
+     * @access protected
+     */
     protected function render(): void {
         $settings = $this->get_settings_for_display();
 
@@ -248,14 +261,17 @@ Class Heading extends \Elementor\Widget_Base{
             return;
         }
 
-        if ( empty( $settings['heading_link'] ) ) {
-            return;
-        }
+        if ( ! empty( $settings['heading_link']['url'] ) ) {
+			$this->add_link_attributes( 'heading_link', $settings['heading_link'] );
+		}
+
         ?>
         <div class="my-class">
-            <<?php echo $settings['heading_size_tag'] ?>>
-              <a href="<?php echo $settings['heading_link']  ?>"><?php echo $settings['title']; ?></a>
-            </<?php echo $settings['heading_size_tag'] ?>>
+            <<?php echo $settings['header_size'] ?>>
+              <a <?php $this->print_render_attribute_string( 'heading_link' ); ?>>
+                <?php echo $settings['title']; ?>
+              </a>
+            </<?php echo $settings['header_size'] ?>>
         </div>
         <?php
     }
