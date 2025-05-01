@@ -121,7 +121,7 @@ Class Heading extends \Elementor\Widget_Base{
 					'div'  => 'div',
 					'span' => 'span',
 					'p' => 'p',
-				],
+				]
 			]
 		);
         
@@ -241,7 +241,7 @@ Class Heading extends \Elementor\Widget_Base{
         $this->end_controls_tab();
 
         $this->end_controls_section();
-
+        
     }
 
     

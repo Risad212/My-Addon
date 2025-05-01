@@ -1,313 +1,358 @@
 <?php
 
+use Elementor\Controls_Manager;
+use Elementor\Utils
+
+defined( 'ABSPATH' ) || die();
+
+
 Class My_Image extends \Elementor\Widget_Base{
 
+
+    /**
+     * Retrive the widget name
+     * 
+     * @since 1.0.0
+     * 
+     * @access public
+     * 
+     * @return string
+     */
     public function get_name(): string {
-		return 'my_image';
+		   return 'my_image';
 	}
 
+    /**
+     * Retrive the widget title
+     * 
+     * @since 1.0.0
+     * 
+     * @access public
+     * 
+     * @return string
+     */
 	public function get_title(): string {
-		return esc_html__( 'My Image', 'my-addon' );
+		   return __( 'My Image', 'my-addon' );
 	}
 
+    /**
+     * Retrive the widget icon
+     * 
+     * @since 1.0.0
+     * 
+     * @access public
+     * 
+     * @return string
+     */
 	public function get_icon(): string {
-		return 'eicon-image';
+		   return 'eicon-image';
 	}
 
+    /**
+     * Retrive the list of categories the widget belon to
+     * 
+     * @since 1.0.0
+     * 
+     * @access public
+     * 
+     * @return array
+     */
 	public function get_categories(): array {
-		return [ 'basic' ];
+		   return [ 'basic' ];
 	}
 
 
-    // -------- register controls -------------
+    /**
+     * Register the widget controls
+     * 
+     * Add diffrent type of input for allow user to control widget setting
+     * 
+     * @since 1.0.0
+     * 
+     * @access public
+     */
     protected function register_controls(): void {
-   
-    // control section
-    $this->start_controls_section(
-        'my_image_section',
-        [
-            'label' => esc_html__( 'My Image Secion', 'my-addon' ),
-            'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-        ]
-    );
 
-    $this->add_control(
-        'my_image',
-        [
-            'label' => esc_html__( 'Choose Image', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::MEDIA,
-            'default' => [
-                'url' => \Elementor\Utils::get_placeholder_image_src(),
-            ],
-        ]
-    );
+        $this->start_controls_section(
+            'image',
+            [
+                'label' => __( 'Image', 'my-addon' ),
+                'tab'   =>   Controls_Manager::TAB_CONTENT,
+            ]
+        );
+
+        $this->add_control(
+            'my_image',
+            [
+                'label'   => __( 'Choose Image', 'my-addon' ),
+                'type'    => Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => Utils::get_placeholder_image_src(),
+                ]
+            ]
+        );
 
     $this->end_controls_section();
 
-    // style image section
+
     $this->start_controls_section(
-        'my_image_style_section',
+        'style',
         [
-            'label' => esc_html__( 'My Image Style Secion', 'my-addon' ),
-            'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            'label' => __( 'My Image Style Secion', 'my-addon' ),
+            'tab'   =>   Controls_Manager::TAB_STYLE,
         ]
-    );
+     );
     
-     
-    $this->add_control(
-        'my_image_align',
-        [
-            'label' => esc_html__( 'Alignment', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::CHOOSE,
-            'options' => [
-                'left' => [
-                    'title' => esc_html__( 'Left', 'my-addon' ),
-                    'icon' => 'eicon-text-align-left',
+        $this->add_control(
+            'alignment',
+            [
+                'label'         => __( 'Alignment', 'my-addon' ),
+                'type'          =>   Controls_Manager::CHOOSE,
+                'options'       => [
+                    'left'      => [
+                        'title' => __( 'Left', 'my-addon' ),
+                        'icon'  => 'eicon-text-align-left',
+                    ],
+                    'center'    => [
+                        'title' => __( 'Center', 'my-addon' ),
+                        'icon'  => 'eicon-text-align-center',
+                    ],
+                    'right'     => [
+                        'title' => __( 'Right', 'my-addon' ),
+                        'icon'  => 'eicon-text-align-right',
+                    ],
                 ],
-                'center' => [
-                    'title' => esc_html__( 'Center', 'my-addon' ),
-                    'icon' => 'eicon-text-align-center',
-                ],
-                'right' => [
-                    'title' => esc_html__( 'Right', 'my-addon' ),
-                    'icon' => 'eicon-text-align-right',
-                ],
-            ],
-            'default' => 'left',
-            'toggle' => true,
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class' => 'text-align: {{VALUE}};',
-            ],
-        ]
-    );
+                'default'       => 'left',
+                'toggle'        => true,
+                'selectors'     => [
+                    '{{WRAPPER}} .my-image' => 'text-align: {{VALUE}};',
+                ]
+            ]
+        );
 
 
 
-    $this->add_control(
-        'my_image_width',
-        [
-            'label' => esc_html__( 'My Image Width', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::SLIDER,
-            'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 1000,
-                    'step' => 5,
+        $this->add_control(
+            'width',
+            [
+                'label'        => __( 'Width', 'my-addon' ),
+                'type'         =>   Controls_Manager::SLIDER,
+                'size_units'   => [ 'px', '%', 'em', 'rem', 'custom' ],
+                'range'        => [
+                    'px'       => [
+                        'min'  => 0,
+                        'max'  => 1000,
+                        'step' => 5,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
                 ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 100,
+                'default'     => [
+                    'unit'    => '%',
+                    'size'    => 100,
                 ],
-            ],
-            'default' => [
-                'unit' => '%',
-                'size' => 100,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class img' => 'width: {{SIZE}}{{UNIT}};',
-            ],
-        ]
-    );
+                'selectors'   => [
+                    '{{WRAPPER}} .my-image-class img' => 'width: {{SIZE}}{{UNIT}};',
+                ]
+            ]
+        );
 
 
-    $this->add_control(
-        'my_max_width',
-        [
-            'label' => esc_html__( 'My Max Width', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::SLIDER,
-            'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 1000,
-                    'step' => 5,
+        $this->add_control(
+            'max_width',
+            [
+                'label'        => __( 'Max Width', 'my-addon' ),
+                'type'         =>   Controls_Manager::SLIDER,
+                'size_units'   => [ 'px', '%', 'em', 'rem', 'custom' ],
+                'range'        => [
+                    'px'       => [
+                        'min'  => 0,
+                        'max'  => 1000,
+                        'step' => 5,
+                    ],
+                    '%' => [
+                        'min'  => 0,
+                        'max'  => 100,
+                    ],
                 ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 100,
+                'default'      => [
+                    'unit'     => '%',
+                    'size'     => 100,
                 ],
-            ],
-            'default' => [
-                'unit' => '%',
-                'size' => 100,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class img' => 'max-width: {{SIZE}}{{UNIT}};',
-            ],
-        ]
-    );
+                'selectors'    => [
+                    '{{WRAPPER}} .my-image-class img' => 'max-width: {{SIZE}}{{UNIT}};',
+                ]
+            ]
+        );
 
-    $this->add_control(
-        'my_height',
-        [
-            'label' => esc_html__( 'Height', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::SLIDER,
-            'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 1000,
-                    'step' => 5,
+        $this->add_control(
+            'my_height',
+            [
+                'label'        => __( 'Height', 'my-addon' ),
+                'type'         =>   Controls_Manager::SLIDER,
+                'size_units'   => [ 'px', '%', 'em', 'rem', 'custom' ],
+                'range'        => [
+                    'px'       => [
+                        'min'  => 0,
+                        'max'  => 100,
+                        'step' => 5,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
                 ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 100,
+                'default'     => [
+                    'unit'    => 'px',
+                    'size'    => 500,
                 ],
-            ],
-            'default' => [
-                'unit' => 'px',
-                'size' => 1000,
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class img' => 'height: {{SIZE}}{{UNIT}};',
-            ],
-        ]
-    );
+                'selectors'   => [
+                    '{{WRAPPER}} .my-image img' => 'height: {{SIZE}}{{UNIT}};'
+                ]
+            ]
+        );
 
 
-    $this->start_controls_tabs(
-        'style_tabs'
-    );
+    $this->start_controls_tabs('style_tabs');
     
-    $this->start_controls_tab(
-        'style_normal_tab',
-        [
-            'label' => esc_html__( 'Normal', 'my-addon' ),
-        ]
-    );
-    
-    $this->add_control(
-        'my_image_opacity',
-        [
-            'label' => esc_html__( 'Opacity', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::SLIDER,
-            'range' => [
-                '' => [ // No unit needed for opacity
-                    'min' => 0,
-                    'max' => 1,
-                    'step' => 0.1,
-                ],
-            ],
-            'default' => [
-                'unit' => '',
-                'size' => 1, // Fully visible
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class img' => 'opacity: {{SIZE}};',
-            ],
-        ]
-    );
+        $this->start_controls_tab(
+            '_normal_tab',
+            [
+                'label' => __( 'Normal', 'my-addon' ),
+            ]
+        );
+        
+            $this->add_control(
+                'opacity',
+                [
+                    'label'        => __( 'Opacity', 'my-addon' ),
+                    'type'         =>   Controls_Manager::SLIDER,
+                    'range'        => [
+                        ''         => [ 
+                            'min'  => 0,
+                            'max'  => 1,
+                            'step' => 0.1,
+                        ],
+                    ],
+                    'default'      => [
+                        'unit'     => '',
+                        'size'     => 1, 
+                    ],
+                    'selectors'    => [
+                        '{{WRAPPER}} .my-image img' => 'opacity: {{SIZE}};',
+                    ],
+                ]
+            );
 
     $this->end_controls_tab();
 
-    // hover control tab
+  
     $this->start_controls_tab(
         'style_normal_tab_hover',
         [
-            'label' => esc_html__( 'Hover', 'my-addon' ),
+            'label' => __( 'Hover', 'my-addon' )
         ]
     );
     
-    $this->add_control(
-        'my_image_opacity_hover',
-        [
-            'label' => esc_html__( 'Opacity', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::SLIDER,
-            'range' => [
-                '' => [ // No unit needed for opacity
-                    'min' => 0,
-                    'max' => 1,
-                    'step' => 0.1,
+        $this->add_control(
+            'opacity_hover',
+            [
+                'label'        => __( 'Opacity', 'my-addon' ),
+                'type'         =>   Controls_Manager::SLIDER,
+                'range'        => [
+                    ''         => [ 
+                        'min'  => 0,
+                        'max'  => 1,
+                        'step' => 0.1,
+                    ],
                 ],
-            ],
-            'default' => [
-                'unit' => '',
-                'size' => 1, // Fully visible
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class img:hover' => 'opacity: {{SIZE}};',
-            ],
-        ]
-    );
+                'default'      => [
+                    'unit'     => '',
+                    'size'     => 1, 
+                ],
+                'selectors'    => [
+                    '{{WRAPPER}} .my-image img:hover' => 'opacity: {{SIZE}};'
+                ]
+            ]
+        );
 
     $this->end_controls_tab();
-    // end control tabs
+ 
     $this->end_controls_tabs();
 
-    // border control add
+ 
     $this->add_control(
-        'my_image_border_type',
+        'border',
         [
-            'label' => esc_html__( 'My Border Type', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::SELECT,
-            'default' => 'none',
-            'options' => [
-                '' => esc_html__( 'Default', 'my-addon' ),
-                'none' => esc_html__( 'None', 'my-addon' ),
-                'solid'  => esc_html__( 'Solid', 'my-addon' ),
-                'dashed' => esc_html__( 'Dashed', 'my-addon' ),
-                'dotted' => esc_html__( 'Dotted', 'my-addon' ),
-                'double' => esc_html__( 'Double', 'my-addon' ),
+            'label'      => __( 'Border Type', 'my-addon' ),
+            'type'       =>   Controls_Manager::SELECT,
+            'default'    => 'none',
+            'options'    => [
+                ''       => __( 'Default', 'my-addon' ),
+                'none'   => __( 'None', 'my-addon' ),
+                'solid'  => __( 'Solid', 'my-addon' ),
+                'dashed' => __( 'Dashed', 'my-addon' ),
+                'dotted' => __( 'Dotted', 'my-addon' ),
+                'double' => __( 'Double', 'my-addon' ),
             ],
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class img' => 'border-style: {{VALUE}};',
-            ],
+            'selectors'  => [
+                '{{WRAPPER}} .my-image img' => 'border-style: {{VALUE}};'
+            ]
         ]
     );
 
     $this->add_control(
-        'my_image_border_width',
+        'border_width',
         [
-            'label' => esc_html__( 'My Border Width', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::DIMENSIONS,
+            'label'      => __( 'Border Width', 'my-addon' ),
+            'type'       =>   Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class img' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
+            'selectors'  => [
+                '{{WRAPPER}} .my-image img' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ]
         ]
     );
 
 
     $this->add_control(
-        'my_image_border_color',
+        'border_color',
         [
-            'label' => esc_html__( 'My Border Color', 'textdomain' ),
-            'type' => \Elementor\Controls_Manager::COLOR,
+            'label'     => __( 'My Border Color', 'textdomain' ),
+            'type'      =>   Controls_Manager::COLOR,
             'selectors' => [
-                '{{WRAPPER}} .my-image-class img' => 'border-color: {{VALUE}}',
-            ],
+                '{{WRAPPER}} .my-image img' => 'border-color: {{VALUE}}',
+            ]
         ]
     );
 
     $this->add_control(
         'my_image_border_radius',
         [
-            'label' => esc_html__( 'My Border Radius', 'my-addon' ),
-            'type' => \Elementor\Controls_Manager::DIMENSIONS,
+            'label'      => __( 'My Border Radius', 'my-addon' ),
+            'type'       =>   Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-            'selectors' => [
-                '{{WRAPPER}} .my-image-class img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
+            'selectors'  => [
+                '{{WRAPPER}} .my-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ]
         ]
     );
 
     
     $this->end_controls_section();
-    // control end secion
+
     $this->end_controls_section();
 
     }    
 
-    //---------- render part -------------
     protected function render(): void {
 		$settings = $this->get_settings_for_display();
         
-        // var_dump($settings['my_image_border_width']);
 		if ( empty( $settings['my_image']['url'] ) ) {
 			return;
 		}
-		echo '<div class="my-image-class"><img src="' . $settings['my_image']['url'] . '"></div>';
+		echo '<div class="my-image"><img src="' . $settings['my_image']['url'] . '"></div>';
 	}
 
 }
