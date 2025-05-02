@@ -1,45 +1,96 @@
 <?php
 
+use Elementor\Controls_Manager;
+
+defined( 'ABSPATH' ) || die();
+
+
 class My_Icon extends \Elementor\Widget_Base {
 
+   
+   /**
+	* Retrive the widget name
+	*
+	* @since 1.0.0
+	*
+	* @access public
+	*
+	* @return string
+    */
    public function get_name(): string {
        return 'my_icon';
     }
 
+	/**
+	* Retrive the widget title
+	*
+	* @since 1.0.0
+	*
+	* @access public
+	*
+	* @return string
+    */
     public function get_title(): string {
-        return esc_html__('My Icon', 'my-addon');
+           return __('My Icon', 'my-addon');
     }
 
+	/**
+	* Retrive the widget icon
+	*
+	* @since 1.0.0
+	*
+	* @access public
+	*
+	* @return string
+    */
     public function get_icon(): string {
-        return 'eicon-favorite';
+           return 'eicon-favorite';
     }
     
+	/**
+	* Retrive the list of cetegories the widget belong to 
+	*
+	* @since 1.0.0
+	*
+	* @access public
+	*
+	* @return array
+    */
      public function get_categories(): array {
-        return [ 'basic' ];
+            return [ 'basic' ];
      }
 
-	 // register control 
+
+	/**
+	*  Register the widget controls
+	* 
+	* Add diffrent type of input for allow user to control widget setting
+	*
+	* @since 1.0.0
+	*
+	* @access public
+    */
 	 protected function register_controls(): void {
+
 		$this->start_controls_section(
 			'my_icon_section',
 			[
-				'label' => esc_html__( 'My Section Icon', 'my-addon' ),
-				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+				'label' => __( 'My Section Icon', 'my-addon' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
-		// control section start
 		$this->add_control(
 			'my_icon',
 			[
-				'label' => esc_html__( 'My Icon', 'my-addon' ),
-				'type' => \Elementor\Controls_Manager::ICONS,
-				'default' => [
-					'value' => 'fas fa-star',
-					'library' => 'fa-solid',
+				'label'          => __( 'My Icon', 'my-addon' ),
+				'type'           => Controls_Manager::ICONS,
+				'default'        => [
+					'value'      => 'fas fa-star',
+					'library'    => 'fa-solid',
 				],
-				'recommended' => [
-					'fa-solid' => [
+				'recommended'    => [
+					'fa-solid'   => [
 						'circle',
 						'dot-circle',
 						'square-full',
@@ -47,64 +98,56 @@ class My_Icon extends \Elementor\Widget_Base {
 					'fa-regular' => [
 						'circle',
 						'dot-circle',
-						'square-full',
-					],
-				],
+						'square-full'
+					]
+				]
 			]
 		);
 
 		$this->add_control(
 			'my_icon_link',
 			[
-				'label' => esc_html__( 'My Icon Link', 'my-addon' ),
-				'type' => \Elementor\Controls_Manager::URL,
-				'options' => [ 'url', 'is_external', 'nofollow' ],
-				'default' => [
-					'url' => '',
-					'is_external' => true,
-					'nofollow' => true,
-					// 'custom_attributes' => '',
-				],
-				'label_block' => true,
+				'label'       => __( 'Icon Link', 'my-addon' ),
+				'type'        => Controls_Manager::URL,
+				'label_block' => true
 			]
 		);
 
 		$this->end_controls_section();
 
-		// start style tab section
 		
 		$this->start_controls_section(
 			'my_style_section',
 			[
-				'label' => esc_html__( 'My Icon', 'my-addon' ),
-				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+				'label' => __( 'My Icon', 'my-addon' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_control(
 			'my_icon_align',
 			[
-				'label' => esc_html__( 'My Icon Alignment', 'my-addon' ),
-				'type' => \Elementor\Controls_Manager::CHOOSE,
-				'options' => [
-					'left' => [
-						'title' => esc_html__( 'Left', 'my-addon' ),
-						'icon' => 'eicon-text-align-left',
+				'label'         => __( 'My Icon Alignment', 'my-addon' ),
+				'type'          => Controls_Manager::CHOOSE,
+				'options'       => [
+					'left'      => [
+						'title' => __( 'Left', 'my-addon' ),
+						'icon'  => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => esc_html__( 'Center', 'my-addon' ),
-						'icon' => 'eicon-text-align-center',
+						'title' => __( 'Center', 'my-addon' ),
+						'icon'  => 'eicon-text-align-center',
 					],
-					'right' => [
-						'title' => esc_html__( 'Right', 'my-addon' ),
-						'icon' => 'eicon-text-align-right',
+					'right'     => [
+						'title' => __( 'Right', 'my-addon' ),
+						'icon'  => 'eicon-text-align-right',
 					],
 				],
 				'default' => 'center',
 				'toggle' => true,
 				'selectors' => [
-					'{{WRAPPER}} .my-icon-wrap' => 'text-align: {{VALUE}};',
-				],
+					'{{WRAPPER}} .my-icon-wrap' => 'text-align: {{VALUE}};'
+				]
 			]
 		);
 
@@ -114,20 +157,20 @@ class My_Icon extends \Elementor\Widget_Base {
 		);
 		
 		$this->start_controls_tab(
-			'my_icon_style_tab',
+			'icon_style_tab',
 			[
-				'label' => esc_html__( 'Normal', 'my-addon' ),
+				'label' => __( 'Normal', 'my-addon' )
 			]
 		);
 
 		$this->add_control(
 			'my_icon_color',
 			[
-				'label' => esc_html__( 'My Icon Color', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
+				'label'     => __( 'My Icon Color', 'textdomain' ),
+				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .my-icon svg' => 'fill: {{VALUE}}',
-				],
+					'{{WRAPPER}} .my-icon svg' => 'fill: {{VALUE}}'
+				]
 			]
 		);
 		
@@ -136,18 +179,18 @@ class My_Icon extends \Elementor\Widget_Base {
 		$this->start_controls_tab(
 			'my_icon_style_hover',
 			[
-				'label' => esc_html__( 'hover', 'my-addon' ),
+				'label' => __( 'hover', 'my-addon' ),
 			]
 		);
 
 		$this->add_control(
 			'my_icon_color_hover',
 			[
-				'label' => esc_html__( 'My Icon Color Hover', 'textdomain' ),
-				'type' => \Elementor\Controls_Manager::COLOR,
+				'label'     => __( 'Color Hover', 'textdomain' ),
+				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .my-icon:hover svg' => 'fill: {{VALUE}}',
-				],
+					'{{WRAPPER}} .my-icon:hover svg' => 'fill: {{VALUE}}'
+				]
 			]
 		);
 		
@@ -158,61 +201,68 @@ class My_Icon extends \Elementor\Widget_Base {
 		$this->add_control(
 			'my_size',
 			[
-				'label' => esc_html__( 'My Size', 'my-addon' ),
-				'type' => \Elementor\Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 1000,
+				'label'        => __( 'My Size', 'my-addon' ),
+				'type'         => Controls_Manager::SLIDER,
+				'size_units'   => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'range'        => [
+					'px'       => [
+						'min'  => 0,
+						'max'  => 1000,
 						'step' => 5,
 					],
 					'%' => [
-						'min' => 0,
-						'max' => 100,
+						'min'  => 0,
+						'max'  => 100,
 					],
 				],
-				'default' => [
-					'unit' => 'px',
-					'size' => 50,
+				'default'      => [
+					'unit'     => 'px',
+					'size'     => 50,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .my-icon svg' => 'width: {{SIZE}}{{UNIT}};',
-				],
+					'{{WRAPPER}} .my-icon svg' => 'width: {{SIZE}}{{UNIT}};'
+				]
 			]
 		);
 
 		$this->add_control(
 			'my_icon_rotate',
 			[
-				'label' => esc_html__( 'My Rotate Icon (deg)', 'my-addon' ),
-				'type' => \Elementor\Controls_Manager::SLIDER,
-				'size_units' => [ 'deg' ],
-				'range' => [
-					'deg' => [
-						'min' => 0,
-						'max' => 360,
+				'label'        => __( 'Rotate Icon (deg)', 'my-addon' ),
+				'type'         => Controls_Manager::SLIDER,
+				'size_units'   => [ 'deg' ],
+				'range'        => [
+					'deg'      => [
+						'min'  => 0,
+						'max'  => 360,
 						'step' => 1,
 					],
 				],
-				'default' => [
-					'unit' => 'deg',
-					'size' => 0,
+				'default'      => [
+					'unit'     => 'deg',
+					'size'     => 0,
 				],
-				'selectors' => [
-					'{{WRAPPER}} .my-icon' => 'transform: rotate({{SIZE}}{{UNIT}});',
-				],
+				'selectors'    => [
+					'{{WRAPPER}} .my-icon' => 'transform: rotate({{SIZE}}{{UNIT}});'
+				]
 			]
 		);
-
 
 		$this->end_controls_section();
 	 }
 
+
+	 /**
+     * Render the Widget
+     * 
+     * Render icon widget output on the frontend
+     * 
+     * @since 1.0.0
+     * 
+     * @access protected
+     */
     protected function render(): void {
 		$settings = $this->get_settings_for_display();
-
-		// var_dump($settings['my_icon']);
 
 		if( empty( $settings['my_icon'] ) ){
 			return;

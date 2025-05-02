@@ -49,7 +49,7 @@ Class My_Image extends \Elementor\Widget_Base{
 	}
 
     /**
-     * Retrive the list of categories the widget belon to
+     * Retrive the list of categories the widget belong to
      * 
      * @since 1.0.0
      * 
@@ -336,7 +336,6 @@ Class My_Image extends \Elementor\Widget_Base{
         ]
     );
 
-    $this->end_controls_section();
     $this->end_controls_section();
 
     }    
