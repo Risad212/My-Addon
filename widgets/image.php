@@ -1,7 +1,7 @@
 <?php
 
 use Elementor\Controls_Manager;
-use Elementor\Utils
+use Elementor\Utils;
 
 defined( 'ABSPATH' ) || die();
 
@@ -98,8 +98,8 @@ Class My_Image extends \Elementor\Widget_Base{
     $this->start_controls_section(
         'style',
         [
-            'label' => __( 'My Image Style Secion', 'my-addon' ),
-            'tab'   =>   Controls_Manager::TAB_STYLE,
+            'label' => __( 'Style', 'my-addon' ),
+            'tab'   =>   Controls_Manager::TAB_STYLE
         ]
      );
     
@@ -119,13 +119,12 @@ Class My_Image extends \Elementor\Widget_Base{
                     ],
                     'right'     => [
                         'title' => __( 'Right', 'my-addon' ),
-                        'icon'  => 'eicon-text-align-right',
-                    ],
+                        'icon'  => 'eicon-text-align-right'
+                    ]
                 ],
-                'default'       => 'left',
                 'toggle'        => true,
                 'selectors'     => [
-                    '{{WRAPPER}} .my-image' => 'text-align: {{VALUE}};',
+                    '{{WRAPPER}} .my-image' => 'text-align: {{VALUE}};'
                 ]
             ]
         );
@@ -137,24 +136,26 @@ Class My_Image extends \Elementor\Widget_Base{
             [
                 'label'        => __( 'Width', 'my-addon' ),
                 'type'         =>   Controls_Manager::SLIDER,
+                'default'      => [
+                    'unit'     => '%'
+                ],
                 'size_units'   => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'range'        => [
-                    'px'       => [
-                        'min'  => 0,
-                        'max'  => 1000,
-                        'step' => 5,
-                    ],
-                    '%' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                ],
-                'default'     => [
-                    'unit'    => '%',
-                    'size'    => 100,
-                ],
-                'selectors'   => [
-                    '{{WRAPPER}} .my-image-class img' => 'width: {{SIZE}}{{UNIT}};',
+					'%'        => [
+						'min'  => 1,
+						'max'  => 100,
+					],
+					'px'       => [
+						'min'  => 1,
+						'max'  => 1000,
+					],
+					'vw'       => [
+						'min'  => 1,
+						'max'  => 100,
+					],
+				],
+                'selectors'    => [
+                    '{{WRAPPER}} .my-image img' => 'width: {{SIZE}}{{UNIT}};'
                 ]
             ]
         );
@@ -166,47 +167,44 @@ Class My_Image extends \Elementor\Widget_Base{
                 'label'        => __( 'Max Width', 'my-addon' ),
                 'type'         =>   Controls_Manager::SLIDER,
                 'size_units'   => [ 'px', '%', 'em', 'rem', 'custom' ],
+                'default'      => [
+					'unit'     => '%',
+				],
                 'range'        => [
                     'px'       => [
-                        'min'  => 0,
+                        'min'  => 1,
                         'max'  => 1000,
-                        'step' => 5,
                     ],
                     '%' => [
-                        'min'  => 0,
+                        'min'  => 1,
                         'max'  => 100,
                     ],
-                ],
-                'default'      => [
-                    'unit'     => '%',
-                    'size'     => 100,
+                    'vw' => [
+                        'min'  => 1,
+                        'max'  => 100,
+                    ]
                 ],
                 'selectors'    => [
-                    '{{WRAPPER}} .my-image-class img' => 'max-width: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .my-image img' => 'max-width: {{SIZE}}{{UNIT}};'
                 ]
             ]
         );
 
         $this->add_control(
-            'my_height',
+            'height',
             [
                 'label'        => __( 'Height', 'my-addon' ),
                 'type'         =>   Controls_Manager::SLIDER,
                 'size_units'   => [ 'px', '%', 'em', 'rem', 'custom' ],
                 'range'        => [
                     'px'       => [
-                        'min'  => 0,
-                        'max'  => 100,
-                        'step' => 5,
+                        'min'  => 1,
+                        'max'  => 500,
                     ],
                     '%' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                ],
-                'default'     => [
-                    'unit'    => 'px',
-                    'size'    => 500,
+                        'min'  => 1,
+                        'max'  => 100,
+                    ]
                 ],
                 'selectors'   => [
                     '{{WRAPPER}} .my-image img' => 'height: {{SIZE}}{{UNIT}};'
@@ -218,46 +216,14 @@ Class My_Image extends \Elementor\Widget_Base{
     $this->start_controls_tabs('style_tabs');
     
         $this->start_controls_tab(
-            '_normal_tab',
+            'normal_tab',
             [
-                'label' => __( 'Normal', 'my-addon' ),
+                'label' => __( 'Normal', 'my-addon' )
             ]
         );
         
-            $this->add_control(
-                'opacity',
-                [
-                    'label'        => __( 'Opacity', 'my-addon' ),
-                    'type'         =>   Controls_Manager::SLIDER,
-                    'range'        => [
-                        ''         => [ 
-                            'min'  => 0,
-                            'max'  => 1,
-                            'step' => 0.1,
-                        ],
-                    ],
-                    'default'      => [
-                        'unit'     => '',
-                        'size'     => 1, 
-                    ],
-                    'selectors'    => [
-                        '{{WRAPPER}} .my-image img' => 'opacity: {{SIZE}};',
-                    ],
-                ]
-            );
-
-    $this->end_controls_tab();
-
-  
-    $this->start_controls_tab(
-        'style_normal_tab_hover',
-        [
-            'label' => __( 'Hover', 'my-addon' )
-        ]
-    );
-    
         $this->add_control(
-            'opacity_hover',
+            'opacity',
             [
                 'label'        => __( 'Opacity', 'my-addon' ),
                 'type'         =>   Controls_Manager::SLIDER,
@@ -270,18 +236,49 @@ Class My_Image extends \Elementor\Widget_Base{
                 ],
                 'default'      => [
                     'unit'     => '',
-                    'size'     => 1, 
+                    'size'     => 1
                 ],
                 'selectors'    => [
-                    '{{WRAPPER}} .my-image img:hover' => 'opacity: {{SIZE}};'
+                    '{{WRAPPER}} .my-image img' => 'opacity: {{SIZE}};'
                 ]
             ]
         );
 
     $this->end_controls_tab();
+
+  
+    $this->start_controls_tab(
+        'tab_hover',
+        [
+            'label' => __( 'Hover', 'my-addon' )
+        ]
+    );
+    
+    $this->add_control(
+        'opacity_hover',
+        [
+            'label'        => __( 'Opacity', 'my-addon' ),
+            'type'         =>   Controls_Manager::SLIDER,
+            'range'        => [
+                ''         => [ 
+                    'min'  => 0,
+                    'max'  => 1,
+                    'step' => 0.1,
+                ],
+            ],
+            'default'      => [
+                'unit'     => '',
+                'size'     => 1
+            ],
+            'selectors'    => [
+                '{{WRAPPER}} .my-image img:hover' => 'opacity: {{SIZE}};'
+            ]
+        ]
+    );
+
+    $this->end_controls_tab();
  
     $this->end_controls_tabs();
-
  
     $this->add_control(
         'border',
@@ -291,11 +288,11 @@ Class My_Image extends \Elementor\Widget_Base{
             'default'    => 'none',
             'options'    => [
                 ''       => __( 'Default', 'my-addon' ),
-                'none'   => __( 'None', 'my-addon' ),
-                'solid'  => __( 'Solid', 'my-addon' ),
-                'dashed' => __( 'Dashed', 'my-addon' ),
-                'dotted' => __( 'Dotted', 'my-addon' ),
-                'double' => __( 'Double', 'my-addon' ),
+                'none'   => __( 'None',    'my-addon' ),
+                'solid'  => __( 'Solid',   'my-addon' ),
+                'dashed' => __( 'Dashed',  'my-addon' ),
+                'dotted' => __( 'Dotted',  'my-addon' ),
+                'double' => __( 'Double',  'my-addon' )
             ],
             'selectors'  => [
                 '{{WRAPPER}} .my-image img' => 'border-style: {{VALUE}};'
@@ -310,7 +307,7 @@ Class My_Image extends \Elementor\Widget_Base{
             'type'       =>   Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
             'selectors'  => [
-                '{{WRAPPER}} .my-image img' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .my-image img' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
             ]
         ]
     );
@@ -319,33 +316,40 @@ Class My_Image extends \Elementor\Widget_Base{
     $this->add_control(
         'border_color',
         [
-            'label'     => __( 'My Border Color', 'textdomain' ),
+            'label'     => __( 'Border Color', 'my-addon' ),
             'type'      =>   Controls_Manager::COLOR,
             'selectors' => [
-                '{{WRAPPER}} .my-image img' => 'border-color: {{VALUE}}',
+                '{{WRAPPER}} .my-image img' => 'border-color: {{VALUE}}'
             ]
         ]
     );
 
     $this->add_control(
-        'my_image_border_radius',
+        'border_radius',
         [
-            'label'      => __( 'My Border Radius', 'my-addon' ),
+            'label'      => __( 'Border Radius', 'my-addon' ),
             'type'       =>   Controls_Manager::DIMENSIONS,
             'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
             'selectors'  => [
-                '{{WRAPPER}} .my-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .my-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
             ]
         ]
     );
 
-    
     $this->end_controls_section();
-
     $this->end_controls_section();
 
     }    
 
+    /**
+     * Render the Widget
+     * 
+     * Render image widget output on the frontend
+     * 
+     * @since 1.0.0
+     * 
+     * @access protected
+     */
     protected function render(): void {
 		$settings = $this->get_settings_for_display();
         
